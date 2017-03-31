@@ -1,0 +1,61 @@
+{%- from  'map.jinja' import env with context %}
+
+{%- set family = grains['os_family'] |lower %}
+
+{%- set scap = {} %}
+
+{%- if family == 'windows' %}
+
+    {#- Determine the scap guide to apply to the OS #}
+    {%- set os_guide = salt.grains.filter_by({
+        '2016Server' : 'ws2016',
+        '2012ServerR2' : 'ws2012',
+        '2008ServerR2' : 'ws2008r2',
+        '8.1' : 'win8',
+        '10' : 'win10',
+    }, grain='osrelease') %}
+
+    {%- set role = salt.cmd.shell(
+        'wmic ComputerSystem get DomainRole /format:list').split('=')[1] %}
+    {%- set role_guide = '' %}
+    {%- set role_guide = '-ms' if role in ['2','3'] else role_guide %}
+    {%- set role_guide = '-dc' if role in ['4','5'] else role_guide %}
+
+    {%- do scap.update({
+        'output_dir': env.systemdrive ~ '\\Watchmaker\\SCAP',
+        'local_dir': env.systemdrive ~ '\\Watchmaker\\SCAP\\Content',
+        'guide_patterns': [
+            'disa/stig-dotnet4',
+            'disa/stig-ie' ~ env.ie_ver,
+            'disa/stig-' ~ os_guide ~ role_guide
+        ]
+    }) %}
+
+{%- elif family == 'redhat' %}
+
+    {%- do scap.update(salt.grains.filter_by({
+        '6': {
+            'guide_patterns': [
+                'disa/stig-el' ~ grains['osmajorrelease']
+            ],
+            'oscap': {
+                'xccdf': 'disa/stig-el6-xccdf.xml',
+                'cpe': 'disa/stig-el6-cpe-dictionary.xml',
+                'profile': 'MAC-1_Classified'
+            },
+            'scc_source': 'https://s3.amazonaws.com/systemprep-repo/linux/custom/scc/scc-4.2.rhel.x86_64.rpm'
+        },
+        '7': {
+            'guide_patterns': [
+                'disa/stig-el' ~ grains['osmajorrelease']
+            ],
+            'oscap': {
+                'xccdf': 'openscap/ssg-' ~ grains['os'] | lower ~ '7-xccdf.xml',
+                'cpe': 'openscap/ssg-rhel7-cpe-dictionary.xml',
+                'profile': 'C2S'
+            },
+            'scc_source': 'https://s3.amazonaws.com/systemprep-repo/linux/custom/scc/scc-4.2.rhel_7.x86_64.rpm'
+        }
+    }, grain='osmajorrelease')) %}
+
+{%- endif %}
