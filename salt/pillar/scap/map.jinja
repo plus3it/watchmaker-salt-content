@@ -15,7 +15,7 @@
         '10' : 'win10',
     }, grain='osrelease') %}
 
-    {%- set role = salt.cmd.shell(
+    {%- set role = salt['cmd.shell'](
         'wmic ComputerSystem get DomainRole /format:list').split('=')[1] %}
     {%- set role_guide = '' %}
     {%- set role_guide = '-ms' if role in ['2','3'] else role_guide %}
