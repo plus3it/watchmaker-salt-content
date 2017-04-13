@@ -1,10 +1,10 @@
 base:
   'G@os_family:RedHat':
-    - ash-linux
-    - scap.elx
+    - common.ash-linux
+    - common.scap.elx
 
   'G@os_family:Windows':
-    - ash-windows
-    - netbanner
-    - scap.windows
-    - winrepo
+    - common.ash-windows
+    - common.netbanner
+    - common.scap.windows
+    - common.winrepo
