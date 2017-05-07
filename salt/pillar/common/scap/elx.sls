@@ -3,6 +3,8 @@
 scap:
   lookup:
     driver: oscap
+    content:
+      local_dir: /root/scap/content
     oscap: {{ scap.oscap | yaml }}
     scc:
       pkg:
