@@ -1,6 +1,7 @@
 base:
   'G@os_family:RedHat':
     - name-computer
+    - scap.content
     - ash-linux.vendor
     - ash-linux.stig
     - ash-linux.iavm
