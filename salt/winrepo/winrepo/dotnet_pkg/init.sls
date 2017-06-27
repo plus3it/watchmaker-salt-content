@@ -17,6 +17,9 @@ Define a dictionary of versions with variables that are distinct for each
 version.
 -#}
 {%- load_yaml as versions %}
+4.7.02053:
+  full_name: 'Microsoft .NET Framework 4.7'
+  filename: 'NDP47-KB3186497-x86-x64-AllOS-ENU.exe'
 4.6.01590:
   full_name: 'Microsoft .NET Framework 4.6.2'
   filename: 'NDP462-KB3151800-x86-x64-AllOS-ENU.exe'
