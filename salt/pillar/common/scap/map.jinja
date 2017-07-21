@@ -7,19 +7,38 @@
 {%- if family == 'windows' %}
 
     {#- Determine the scap guide to apply to the OS #}
-    {%- set os_guide = salt.grains.filter_by({
-        '2016Server' : 'ws2016',
-        '2012ServerR2' : 'ws2012',
-        '2008ServerR2' : 'ws2008r2',
-        '8.1' : 'win8',
-        '10' : 'win10',
-    }, grain='osrelease') %}
+    {%- set role_path_map = {
+        '2' : '-ms',
+        '3' : '-ms',
+        '4' : '-dc',
+        '5' : '-dc'
+    } %}
 
     {%- set role = salt['cmd.shell'](
         'wmic ComputerSystem get DomainRole /format:list').split('=')[1] %}
-    {%- set role_guide = '' %}
-    {%- set role_guide = '-ms' if role in ['2','3'] else role_guide %}
-    {%- set role_guide = '-dc' if role in ['4','5'] else role_guide %}
+
+    {%- set guide_map = salt.grains.filter_by({
+        '2016Server' : {
+            'os' : 'ws2016',
+            'role' : ''
+        },
+        '2012ServerR2' : {
+            'os' : 'ws2012',
+            'role' : role_path_map[role]
+        },
+        '2008ServerR2' : {
+            'os' : 'ws2008r2',
+            'role' : role_path_map[role]
+        },
+        '8.1' : {
+            'os' : 'win8',
+            'role' : ''
+        },
+        '10' : {
+            'os' : 'win10',
+            'role' : ''
+        }
+    }, grain='osrelease') %}
 
     {%- do scap.update({
         'output_dir': env.systemdrive ~ '\\Watchmaker\\SCAP',
@@ -27,7 +46,7 @@
         'guide_patterns': [
             'disa/stig-dotnet4',
             'disa/stig-ie' ~ env.ie_ver,
-            'disa/stig-' ~ os_guide ~ role_guide
+            'disa/stig-' ~ guide_map.os ~ guide_map.role
         ]
     }) %}
 
