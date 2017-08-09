@@ -52,6 +52,11 @@
 
 {%- elif family == 'redhat' %}
 
+    {%- set os = salt.grains.filter_by({
+        'RedHat': 'rhel',
+        'CentOS': 'centos'
+    }, grain='os') %}
+
     {%- do scap.update(salt.grains.filter_by({
         '6': {
             'guide_patterns': [
@@ -69,7 +74,7 @@
                 'disa/stig-el' ~ grains['osmajorrelease']
             ],
             'oscap': {
-                'xccdf': 'openscap/ssg-' ~ grains['os'] | lower ~ '7-xccdf.xml',
+                'xccdf': 'openscap/ssg-' ~ os ~ '7-xccdf.xml',
                 'cpe': 'openscap/ssg-rhel7-cpe-dictionary.xml',
                 'profile': 'C2S'
             },
