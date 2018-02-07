@@ -17,4 +17,3 @@ base:
     # Recommend other custom states be inserted here
     - ash-windows.delta
     - ash-windows.custom
-    - scap.scan
