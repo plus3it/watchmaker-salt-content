@@ -10,13 +10,10 @@ base:
 
   'G@os_family:Windows':
     - name-computer
-    - dotnet4
     - pshelp
-    - netbanner.custom
     - emet
     - ash-windows.stig
     - ash-windows.iavm
     # Recommend other custom states be inserted here
     - ash-windows.delta
     - ash-windows.custom
-    - scap.scan
