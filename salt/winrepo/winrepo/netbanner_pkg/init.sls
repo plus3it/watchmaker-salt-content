@@ -39,12 +39,10 @@ versions:
   {% for version,params in versions.items() %}
   '{{ version }}':
     installer: >-
-      https://s3.amazonaws.com/systemprep-repo/windows/netbanner/{{
-      version }}/{{ params.filename }}
+      https://path/to/your/netbanner/{{ version }}/{{ params.filename }}
     full_name: {{ params.full_name }}
     uninstaller: >-
-      https://s3.amazonaws.com/systemprep-repo/windows/netbanner/{{
-      version }}/{{ params.filename }}
+      https://path/to/your/netbanner/{{ version }}/{{ params.filename }}
   {% endfor %}
 {%- endload -%}
 
