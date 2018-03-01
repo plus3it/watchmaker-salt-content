@@ -63,9 +63,10 @@
                 'disa/stig-el' ~ grains['osmajorrelease']
             ],
             'oscap': {
-                'xccdf': 'disa/stig-el6-xccdf.xml',
+                'xccdf': 'disa/stig-el6.xml',
                 'cpe': 'disa/stig-el6-cpe-dictionary.xml',
-                'profile': 'MAC-1_Classified'
+                'profile': 'xccdf_mil.disa.stig_profile_MAC-1_Classified',
+                'scap1_2': 'true'
             },
             'scc_source': 'https://path/to/your/scc/scc-4.2.rhel.x86_64.rpm'
         },
