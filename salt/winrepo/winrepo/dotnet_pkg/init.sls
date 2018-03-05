@@ -17,21 +17,24 @@ Define a dictionary of versions with variables that are distinct for each
 version.
 -#}
 {%- load_yaml as versions %}
-4.7.02053:
-  full_name: 'Microsoft .NET Framework 4.7'
-  filename: 'NDP47-KB3186497-x86-x64-AllOS-ENU.exe'
-4.6.01590:
-  full_name: 'Microsoft .NET Framework 4.6.2'
-  filename: 'NDP462-KB3151800-x86-x64-AllOS-ENU.exe'
-4.6.01055:
-  full_name: 'Microsoft .NET Framework 4.6.1'
-  filename: 'NDP461-KB3102436-x86-x64-AllOS-ENU.exe'
-4.6.00081:
-  full_name: 'Microsoft .NET Framework 4.6'
-  filename: 'NDP46-KB3045557-x86-x64-AllOS-ENU.exe'
-4.5.51209:
-  full_name: 'Microsoft .NET Framework 4.5.2'
-  filename: 'NDP452-KB2901907-x86-x64-AllOS-ENU.exe'
+'4.7.02558':
+  installer: https://s3.amazonaws.com/systemprep-repo/windows/dotnet/4.7.02558/NDP471-KB4033342-x86-x64-AllOS-ENU.exe
+  full_name: Microsoft .NET Framework 4.7.1
+'4.7.02053':
+  installer: https://s3.amazonaws.com/systemprep-repo/windows/dotnet/4.7.02053/NDP47-KB3186497-x86-x64-AllOS-ENU.exe
+  full_name: Microsoft .NET Framework 4.7
+'4.6.01590':
+  installer: https://s3.amazonaws.com/systemprep-repo/windows/dotnet/4.6.01590/NDP462-KB3151800-x86-x64-AllOS-ENU.exe
+  full_name: Microsoft .NET Framework 4.6.2
+'4.6.01055':
+  installer: https://s3.amazonaws.com/systemprep-repo/windows/dotnet/4.6.01055/NDP461-KB3102436-x86-x64-AllOS-ENU.exe
+  full_name: Microsoft .NET Framework 4.6.1
+'4.6.00081':
+  installer: https://s3.amazonaws.com/systemprep-repo/windows/dotnet/4.6.00081/NDP46-KB3045557-x86-x64-AllOS-ENU.exe
+  full_name: Microsoft .NET Framework 4.6
+'4.5.51209':
+  installer: https://s3.amazonaws.com/systemprep-repo/windows/dotnet/4.5.51209/NDP452-KB2901907-x86-x64-AllOS-ENU.exe
+  full_name: Microsoft .NET Framework 4.5.2
 {% endload %}
 
 {#-
@@ -53,9 +56,7 @@ common_params:
 versions:
   {% for version,params in versions.items() %}
   '{{ version }}':
-    installer: >-
-      https://s3.amazonaws.com/systemprep-repo/windows/dotnet/{{
-      version }}/{{ params.filename }}
+    installer: {{ params.installer }}
     full_name: {{ params.full_name }}
     uninstaller: >-
       {{ systemroot }}\Microsoft.NET\Framework64\v4.0.30319\SetupCache\v{{
