@@ -60,11 +60,12 @@
     {%- do scap.update(salt.grains.filter_by({
         '6': {
             'guide_patterns': [
-                'disa/stig-el' ~ grains['osmajorrelease']
+                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-1',
+                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
             ],
             'oscap': {
-                'xccdf': 'disa/stig-el6.xml',
-                'cpe': 'disa/stig-el6-cpe-dictionary.xml',
+                'xccdf': 'disa/stig-el6-scap_1-2.xml',
+                'cpe': 'disa/stig-el6-scap_1-1-cpe-dictionary.xml',
                 'profile': 'xccdf_mil.disa.stig_profile_MAC-1_Classified',
                 'scap1_2': 'true'
             },
@@ -72,7 +73,7 @@
         },
         '7': {
             'guide_patterns': [
-                'disa/stig-el' ~ grains['osmajorrelease']
+                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
             ],
             'oscap': {
                 'xccdf': 'openscap/ssg-' ~ os ~ '7-xccdf.xml',
