@@ -29,11 +29,11 @@ versions:
   {% for version in versions %}
   '{{ version }}':
     installer: >-
-      https://s3.amazonaws.com/watchmaker/repo/microsoft/emet/{{
+      https://watchmaker.cloudarmor.io/repo/microsoft/emet/{{
       version }}/EMET+Setup.msi
     full_name: 'EMET {{ version }}'
     uninstaller: >-
-      https://s3.amazonaws.com/watchmaker/repo/microsoft/emet/{{
+      https://watchmaker.cloudarmor.io/repo/microsoft/emet/{{
       version }}/EMET+Setup.msi
   {% endfor %}
 {%- endload -%}
