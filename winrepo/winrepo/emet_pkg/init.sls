@@ -60,5 +60,5 @@ the `package.common_params` dictionary.
       default=package.common_params,
       merge=True)) %}
   '{{ version }}':
-    {{ params }}
+    {{ params | yaml }}
   {%- endfor %}
