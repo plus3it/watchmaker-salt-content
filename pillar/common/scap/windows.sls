@@ -7,5 +7,5 @@ scap:
     content:
       local_dir: {{ scap.local_dir }}
     scc:
-      version: '4.2'
+      version: '5.4.2'
       guide_patterns: {{ scap.guide_patterns | yaml }}
