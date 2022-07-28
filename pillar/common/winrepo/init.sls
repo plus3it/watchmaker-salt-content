@@ -1,5 +1,5 @@
 scc:
   winrepo:
     versions:
-      '4.2':
-        installer: https://path/to/your/scc/SCC_4.2_Windows_Setup.exe
+      '5.5':
+        installer: https://watchmaker.cloudarmor.io/repo/spawar/scc/SCC_5.5_Windows_Setup.exe
