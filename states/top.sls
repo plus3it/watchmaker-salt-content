@@ -15,4 +15,5 @@ base:
     - ash-windows.iavm
     # Recommend other custom states be inserted here
     - ash-windows.delta
+    - scap.scan
     - ash-windows.custom

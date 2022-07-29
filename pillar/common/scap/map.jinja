@@ -62,19 +62,6 @@
     }, grain='os') %}
 
     {%- do scap.update(salt.grains.filter_by({
-        '6': {
-            'guide_patterns': [
-                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-1',
-                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
-            ],
-            'oscap': {
-                'xccdf': 'disa/stig-el6-scap_1-2.xml',
-                'cpe': 'disa/stig-el6-scap_1-1-cpe-dictionary.xml',
-                'profile': 'xccdf_mil.disa.stig_profile_MAC-1_Classified',
-                'scap1_2': 'true'
-            },
-            'scc_source': 'https://path/to/your/scc/scc-4.2.rhel.x86_64.rpm'
-        },
         '7': {
             'guide_patterns': [
                 'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
@@ -84,7 +71,7 @@
                 'cpe': 'openscap/ssg-rhel7-cpe-dictionary.xml',
                 'profile': 'profile_stig' if os == 'rhel' else 'stig'
             },
-            'scc_source': 'https://path/to/your/scc/scc-4.2.rhel_7.x86_64.rpm'
+            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.5.rhel7.x86_64.rpm'
         }
     }, grain='osmajorrelease')) %}
 
