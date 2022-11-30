@@ -1,7 +1,10 @@
-{%- set os = grains['os'] |lower %}
-{%- if os == 'redhat' %}
-    {%- set os = 'rhel' %}
-{%- endif %}
+{%- set os = salt.grains.filter_by({
+    'RedHat': 'rhel',
+    'OEL': 'ol',
+    'CentOS': 'centos',
+    'Rocky': 'centos',
+    'AlmaLinux': 'centos'
+}, grain='os') %}
 
 ash-linux:
   lookup:
