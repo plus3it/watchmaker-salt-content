@@ -57,8 +57,11 @@
 {%- elif family == 'redhat' %}
 
     {%- set os = salt.grains.filter_by({
+        'AlmaLinux': 'centos',
+        'CentOS': 'centos',
+        'OEL': 'ol',
         'RedHat': 'rhel',
-        'CentOS': 'centos'
+        'Rocky': 'centos'
     }, grain='os') %}
 
     {%- do scap.update(salt.grains.filter_by({
