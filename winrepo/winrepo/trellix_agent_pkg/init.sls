@@ -1,5 +1,5 @@
 {#- Set the name of the winrepo package. -#}
-{%- set name = 'mcafee-agent' -%}
+{%- set name = 'trellix-agent' -%}
 
 {#-
 Define variables that may be unique to the system and are required for one of
@@ -20,10 +20,10 @@ name: {{ name }}
 pillar: '{{ name }}:winrepo'
 {# `common_params` are winrepo params that are the same for all versions. #}
 common_params:
-  full_name: 'McAfee Agent'
+  full_name: 'Trellix Agent'
   install_flags: ' /install=agent /forceinstall /silent'
   msiexec: False
-  uninstaller: '%ProgramFiles%\McAfee\Agent\x86\FrmInst.exe'
+  uninstaller: '%ProgramFiles%\Trellix\Agent\x86\FrmInst.exe'
   uninstall_flags: ' /forceuninstall /silent'
 {# `versions` are winrepo params that are distinct per version. #}
 versions:
