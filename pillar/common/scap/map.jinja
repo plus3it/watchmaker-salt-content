@@ -59,9 +59,10 @@
     {%- set os = salt.grains.filter_by({
         'AlmaLinux': 'centos',
         'CentOS': 'centos',
+        'CentOS Stream': 'centos',
         'OEL': 'ol',
         'RedHat': 'rhel',
-        'Rocky': 'centos'
+        'Rocky': 'centos',
     }, grain='os') %}
 
     {%- do scap.update(salt.grains.filter_by({
