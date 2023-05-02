@@ -59,9 +59,10 @@
     {%- set os = salt.grains.filter_by({
         'AlmaLinux': 'centos',
         'CentOS': 'centos',
+        'CentOS Stream': 'centos',
         'OEL': 'ol',
         'RedHat': 'rhel',
-        'Rocky': 'centos'
+        'Rocky': 'centos',
     }, grain='os') %}
 
     {%- do scap.update(salt.grains.filter_by({
@@ -72,7 +73,7 @@
             'oscap': {
                 'xccdf': 'openscap/ssg-' ~ os ~ '7-xccdf.xml',
                 'cpe': 'openscap/ssg-rhel7-cpe-dictionary.xml',
-                'profile': 'stig'
+                'profile': 'xccdf_org.ssgproject.content_profile_stig'
             },
             'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.5.rhel7.x86_64.rpm'
         },
@@ -83,7 +84,7 @@
             'oscap': {
                 'xccdf': 'openscap/ssg-' ~ os ~ '8-xccdf.xml',
                 'cpe': 'openscap/ssg-rhel8-cpe-dictionary.xml',
-                'profile': 'stig'
+                'profile': 'xccdf_org.ssgproject.content_profile_stig'
             },
             'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.5.rhel8.x86_64.rpm'
         }
