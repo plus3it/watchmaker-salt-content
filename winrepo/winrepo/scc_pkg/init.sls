@@ -7,7 +7,7 @@ the winrepo parameters.
 -#}
 
 {#- Define a list of versions. -#}
-{%- set versions = [ '5.5' ] -%}
+{%- set versions = [ '5.7.1' ] -%}
 
 {#-
 Initialize the `package` dictionary, which will contain the information needed
