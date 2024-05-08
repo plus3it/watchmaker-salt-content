@@ -75,7 +75,7 @@
                 'cpe': 'openscap/ssg-rhel7-cpe-dictionary.xml',
                 'profile': 'xccdf_org.ssgproject.content_profile_stig'
             },
-            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.7.1.rhel7.x86_64.rpm'
+            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.9.rhel7.x86_64.rpm'
         },
         '8': {
             'guide_patterns': [
@@ -86,7 +86,18 @@
                 'cpe': 'openscap/ssg-rhel8-cpe-dictionary.xml',
                 'profile': 'xccdf_org.ssgproject.content_profile_stig'
             },
-            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.7.1.rhel8.x86_64.rpm'
+            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.9.rhel8.x86_64.rpm'
+        },
+        '9': {
+            'guide_patterns': [
+                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-3'
+            ],
+            'oscap': {
+                'xccdf': 'openscap/ssg-' ~ os ~ '9-xccdf.xml',
+                'cpe': 'openscap/ssg-rhel9-cpe-dictionary.xml',
+                'profile': 'xccdf_org.ssgproject.content_profile_stig'
+            },
+            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.9.rhel9.x86_64.rpm'
         }
     }, grain='osmajorrelease')) %}
 
