@@ -1,10 +1,10 @@
 {%- set os = salt.grains.filter_by({
-    'AlmaLinux': 'centos',
-    'CentOS': 'centos',
-    'CentOS Stream': 'centos',
+    'AlmaLinux': 'cs',
+    'CentOS': 'cs',
+    'CentOS Stream': 'cs',
     'OEL': 'ol',
     'RedHat': 'rhel',
-    'Rocky': 'centos',
+    'Rocky': 'cs',
 }, grain='os') %}
 
 ash-linux:
