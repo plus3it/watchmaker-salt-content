@@ -1,6 +1,5 @@
 {%- set os = salt.grains.filter_by({
     'AlmaLinux': 'cs',
-    'CentOS': 'cs',
     'CentOS Stream': 'cs',
     'OEL': 'ol',
     'RedHat': 'rhel',
