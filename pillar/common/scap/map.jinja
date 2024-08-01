@@ -18,6 +18,10 @@
         'wmic ComputerSystem get DomainRole /format:list').split('=')[1] %}
 
     {%- set guide_map = salt.grains.filter_by({
+        '2022Server' : {
+            'os' : 'ws2022',
+            'role' : ''
+        },
         '2019Server' : {
             'os' : 'ws2019',
             'role' : ''
@@ -40,6 +44,10 @@
         },
         '10' : {
             'os' : 'win10',
+            'role' : ''
+        },
+        '11' : {
+            'os' : 'win11',
             'role' : ''
         }
     }, grain='osrelease') %}
