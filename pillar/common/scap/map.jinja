@@ -56,33 +56,31 @@
 
 {%- elif family == 'redhat' %}
 
-    {%- set os = salt.grains.filter_by({
-        'AlmaLinux': 'centos',
-        'CentOS': 'centos',
-        'CentOS Stream': 'centos',
-        'OEL': 'ol',
-        'RedHat': 'rhel',
-        'Rocky': 'centos',
-    }, grain='os') %}
+    {%- set content_matcher = salt.grains.filter_by({
+        8: salt.grains.filter_by({
+            'AlmaLinux': 'centos8',
+            'CentOS': 'centos8',
+            'CentOS Stream': 'centos8',
+            'OEL': 'ol8',
+            'RedHat': 'rhel8',
+            'Rocky': 'centos8',
+        }, grain='os'),
+        9: salt.grains.filter_by({
+            'AlmaLinux': 'cs9',
+            'CentOS Stream': 'cs9',
+            'OEL': 'ol9',
+            'RedHat': 'rhel9',
+            'Rocky': 'cs9',
+        }, grain='os'),
+    }, grain='osmajorrelease')%}
 
     {%- do scap.update(salt.grains.filter_by({
-        '7': {
-            'guide_patterns': [
-                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
-            ],
-            'oscap': {
-                'xccdf': 'openscap/ssg-' ~ os ~ '7-xccdf.xml',
-                'cpe': 'openscap/ssg-rhel7-cpe-dictionary.xml',
-                'profile': 'xccdf_org.ssgproject.content_profile_stig'
-            },
-            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.9.rhel7.x86_64.rpm'
-        },
         '8': {
             'guide_patterns': [
                 'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
             ],
             'oscap': {
-                'xccdf': 'openscap/ssg-' ~ os ~ '8-xccdf.xml',
+                'xccdf': 'openscap/ssg-' ~ content_matcher ~ '-xccdf.xml',
                 'cpe': 'openscap/ssg-rhel8-cpe-dictionary.xml',
                 'profile': 'xccdf_org.ssgproject.content_profile_stig'
             },
@@ -93,7 +91,7 @@
                 'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-3'
             ],
             'oscap': {
-                'xccdf': 'openscap/ssg-' ~ os ~ '9-xccdf.xml',
+                'xccdf': 'openscap/ssg-' ~ content_matcher ~ '-xccdf.xml',
                 'cpe': 'openscap/ssg-rhel9-cpe-dictionary.xml',
                 'profile': 'xccdf_org.ssgproject.content_profile_stig'
             },
