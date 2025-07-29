@@ -8,7 +8,7 @@
         'Rocky': 'centos8',
     }, grain='os'),
     9: salt.grains.filter_by({
-        'AlmaLinux': 'cs9',
+        'AlmaLinux': 'almalinux9',
         'CentOS Stream': 'cs9',
         'OEL': 'ol9',
         'RedHat': 'rhel9',
