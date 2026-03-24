@@ -11,6 +11,10 @@ Define a dictionary of versions with variables that are distinct for each
 version.
 -#}
 {%- load_yaml as versions %}
+'8.8.0.12050':
+  installer: 'https://url/to/8.8.0.12050/Windows_Agent_Pkg-v91020768_x64.msi'
+  full_name: 'Cortex XDR 8.8.0.12050'
+  uninstall_flags: '/x "Windows_Agent_Pkg-v88012050_x64.msi" /qn /norestart UNINSTALL_PASSWORD="OrgPassword"'
 '9.1.0.20768':
   installer: 'https://url/to/9.1.0.20768/Windows_Agent_Pkg-v91020768_x64.msi'
   full_name: 'Cortex XDR 9.1.0.20768'
