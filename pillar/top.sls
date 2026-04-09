@@ -1,4 +1,7 @@
 base:
+  '*':
+    - common.opts
+
   'G@os_family:RedHat':
     - common.ash-linux
     - common.scap.elx
