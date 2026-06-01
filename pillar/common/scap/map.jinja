@@ -64,57 +64,85 @@
 
 {%- elif family == 'redhat' %}
 
-    {%- set content_matcher = salt.grains.filter_by({
-        8: salt.grains.filter_by({
-            'AlmaLinux': 'centos8',
-            'CentOS': 'centos8',
-            'CentOS Stream': 'centos8',
-            'OEL': 'ol8',
-            'RedHat': 'rhel8',
-            'Rocky': 'rl8',
-        }, grain='os'),
-        9: salt.grains.filter_by({
-            'AlmaLinux': 'almalinux9',
-            'CentOS Stream': 'cs9',
-            'OEL': 'ol9',
-            'RedHat': 'rhel9',
-            'Rocky': 'rl9',
-        }, grain='os'),
-        10: salt.grains.filter_by({
-            'AlmaLinux': 'almalinux10',
-            'CentOS Stream': 'cs10',
-            'OEL': 'ol10',
-            'RedHat': 'rhel10',
-            'Rocky': 'rl10',
-        }, grain='os'),
-        2023: salt.grains.filter_by({
-            'Amazon Linux': 'al2023',
-        }, grain='os'),
+    {%- set mapping = salt.grains.filter_by({
+        8: {
+            'baseline_ver': '8',
+            'scap_ver': '1-2',
+            'cpe': salt.grains.filter_by({
+                'AlmaLinux': 'rhel8',
+                'CentOS': 'rhel8',
+                'CentOS Stream': 'rhel8',
+                'OEL': 'ol8',
+                'RedHat': 'rhel8',
+                'Rocky': 'rhel8',
+            }, grain='os'),
+            'ds_xccdf': salt.grains.filter_by({
+                'AlmaLinux': 'centos8',
+                'CentOS': 'centos8',
+                'CentOS Stream': 'centos8',
+                'OEL': 'ol8',
+                'RedHat': 'rhel8',
+                'Rocky': 'rl8',
+            }, grain='os'),
+        },
+        9: {
+            'baseline_ver': '9',
+            'scap_ver': '1-3',
+            'cpe': salt.grains.filter_by({
+                'AlmaLinux': 'almalinux9',
+                'CentOS Stream': 'rhel9',
+                'OEL': 'ol9',
+                'RedHat': 'rhel9',
+                'Rocky': 'rhel9',
+            }, grain='os'),
+            'ds_xccdf': salt.grains.filter_by({
+                'AlmaLinux': 'almalinux9',
+                'CentOS Stream': 'cs9',
+                'OEL': 'ol9',
+                'RedHat': 'rhel9',
+                'Rocky': 'rl9',
+            }, grain='os'),
+        },
+        10: {
+            'baseline_ver': '10',
+            'scap_ver': '1-3',
+            'cpe': salt.grains.filter_by({
+                'AlmaLinux': 'almalinux10',
+                'CentOS Stream': 'rhel10',
+                'OEL': 'ol10',
+                'RedHat': 'rhel10',
+                'Rocky': 'rhel10',
+            }, grain='os'),
+            'ds_xccdf': salt.grains.filter_by({
+                'AlmaLinux': 'almalinux10',
+                'CentOS Stream': 'cs10',
+                'OEL': 'ol10',
+                'RedHat': 'rhel10',
+                'Rocky': 'rl10',
+            }, grain='os'),
+        },
+        2023: {
+            'baseline_ver': '9',
+            'scap_ver': '1-3',
+            'cpe': salt.grains.filter_by({
+                'Amazon': 'al2023',
+            }, grain='os'),
+            'ds_xccdf': salt.grains.filter_by({
+                'Amazon': 'al2023',
+            }, grain='os'),
+        },
     }, grain='osmajorrelease')%}
 
-    {%- do scap.update(salt.grains.filter_by({
-        '8': {
-            'guide_patterns': [
-                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-2'
-            ],
-            'oscap': {
-                'xccdf': 'openscap/ssg-' ~ content_matcher ~ '-xccdf.xml',
-                'cpe': 'openscap/ssg-rhel8-cpe-dictionary.xml',
-                'profile': 'xccdf_org.ssgproject.content_profile_stig'
-            },
-            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.14.rhel8.x86_64.rpm'
+    {%- do scap.update({
+        'guide_patterns': [
+            'disa/stig-el' ~ mapping.baseline_ver ~ '-scap_' ~ mapping.scap_ver
+        ],
+        'oscap': {
+            'xccdf': 'openscap/ssg-' ~ mapping.ds_xccdf ~ '-xccdf.xml',
+            'cpe': 'openscap/ssg-' ~ mapping.cpe ~ '-cpe-dictionary.xml',
+            'profile': 'xccdf_org.ssgproject.content_profile_stig'
         },
-        '9': {
-            'guide_patterns': [
-                'disa/stig-el' ~ grains['osmajorrelease'] ~ '-scap_1-3'
-            ],
-            'oscap': {
-                'xccdf': 'openscap/ssg-' ~ content_matcher ~ '-xccdf.xml',
-                'cpe': 'openscap/ssg-rhel9-cpe-dictionary.xml',
-                'profile': 'xccdf_org.ssgproject.content_profile_stig'
-            },
-            'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.14.rhel9.x86_64.rpm'
-        }
-    }, grain='osmajorrelease')) %}
+        'scc_source': 'https://watchmaker.cloudarmor.io/repo/spawar/scc/scc-5.14.rhel' ~ mapping.baseline_ver ~ '.x86_64.rpm'
+    }) %}
 
 {%- endif %}
